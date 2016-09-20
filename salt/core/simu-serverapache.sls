@@ -1,7 +1,5 @@
 dngroup/simu-serverapache:
-  docker.pulled:
-    - tag: latest
-    - name: dngroup/simu-serverapache
+  dockerng.image_present
 
 
 

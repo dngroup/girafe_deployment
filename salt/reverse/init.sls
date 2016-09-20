@@ -40,6 +40,6 @@ Enable girafe site:
 
 
 sudo apache2ctl restart:
-    - cmd.run
+  cmd.run
 
 
