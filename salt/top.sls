@@ -1,5 +1,6 @@
 base:
   '*':
+   - security
    - reverse
-   - core
    - docker
+   - core

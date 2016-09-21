@@ -1,7 +1,7 @@
 # girafedeployment
 
 ```
-sudo salt-call --local --file-root=$(pwd)/salt state.highstate
+sudo salt-call --local --file-root=$(pwd)/salt state.highstate pillar="{publicaddr: 'http://demo-girafe.nextnet.top/', bar: 'Bar!'}"
 ```
 
 

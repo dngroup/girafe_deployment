@@ -22,6 +22,7 @@
   file.managed:
     - name: /root/girafe.yaml
     - source: https://raw.githubusercontent.com/dngroup/girafe/master/docker/composer/girafe.yaml
+    - skip_verify: True
     - makedirs: True
     - user: root
     - group: root
@@ -40,8 +41,8 @@
 systemctl daemon-reload:
   cmd.run
 
-
-
+sudo service docker restart:
+  cmd.run
 
 include:
   - .simu-dockermgt
