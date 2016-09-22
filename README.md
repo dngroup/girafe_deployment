@@ -1,6 +1,9 @@
 # girafedeployment
 
+
+
 ```
+# pillar value is the default value
 sudo salt-call --local --file-root=$(pwd)/salt state.highstate pillar="{'publicaddr': 'http://demo-girafe.nextnet.top/', 'id_rsa': '/root/.ssh/id_rsa', 'user': $USER, 'outfloder':'/var/www/girafe-data'}"
 ```
 
