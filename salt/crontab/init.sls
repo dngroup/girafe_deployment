@@ -16,7 +16,11 @@ docker run -itv {{ salt['pillar.get']('id_rsa', '/root/.ssh/id_rsa') }}:/root/id
     - hour: '2'
     - user: {{ salt['pillar.get']('user', 'root') }}
 
-
+mv {{ salt['pillar.get']('outfloder', '/var/www/girafe-data') }}/out {{ salt['pillar.get']('outfloder', '/var/www/girafe-data') }}/web:
+  cron.present:
+    - minute: 30
+    - hour: '3'
+    - user: {{ salt['pillar.get']('user', 'root') }}
 
 docker run -itv {{ salt['pillar.get']('id_rsa', '/root/.ssh/id_rsa') }}:/root/id_rsa  dngroup/girafe-ixp-data-extractor ./ixp.sh:
   cron.present:
