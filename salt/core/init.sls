@@ -1,7 +1,17 @@
-/etc/systemd/system/docker.service.d/docker-defaults.conf:
+#/etc/systemd/system/docker.service.d/docker-defaults.conf:
+#  file:
+#    - managed
+#    - source: salt://core/file/docker-defaults.conf
+#    - template: jinja
+#    - makedirs: True
+#    - user: root
+#    - group: root
+#    - mode: 666
+
+/etc/default/docker:
   file:
     - managed
-    - source: salt://core/file/docker-defaults.conf
+    - source: salt://core/file/docker
     - template: jinja
     - makedirs: True
     - user: root

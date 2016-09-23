@@ -12,9 +12,17 @@ apache2:
     - mode: 666
 
 
-Enable modules:
-  apache_module.enabled:
-    - name: proxy_http rewrite headers
+
+proxy_http:
+  apache_module.enabled
+
+
+rewrite:
+  apache_module.enabled
+
+headers:
+  apache_module.enabled
+
 
 #/etc/apache2/sites-available/girafe.conf:
 #  apache.configfile:
