@@ -47,7 +47,7 @@ Enable girafe site:
     - name: girafe.conf 
 
 
-sudo apache2ctl restart:
+apache2ctl restart:
   cmd.run
 
 

@@ -51,7 +51,7 @@
 systemctl daemon-reload:
   cmd.run
 
-sudo service docker restart:
+service docker restart:
   cmd.run
 
 include:
