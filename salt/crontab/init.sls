@@ -17,6 +17,7 @@ extract:
     - minute: 0
     - hour: '*/4'
     - user: {{ salt['pillar.get']('user', 'root') }}
+    - identifier: extract
 
 compile:
   cron.present:
@@ -24,6 +25,7 @@ compile:
     - minute: 30
     - hour: '1'
     - user: {{ salt['pillar.get']('user', 'root') }}
+    - identifier: compile
 
 webupdate:
   cron.present:
@@ -31,6 +33,7 @@ webupdate:
     - minute: 30
     - hour: '2'
     - user: {{ salt['pillar.get']('user', 'root') }}
+    - identifier: webupdate
 
 mv out folder:
   cron.present:
@@ -38,6 +41,8 @@ mv out folder:
     - minute: 30
     - hour: '3'
     - user: {{ salt['pillar.get']('user', 'root') }}
+    - identifier: mv out folder
+
 
 peeringdb extractor:
   cron.present:
@@ -45,3 +50,4 @@ peeringdb extractor:
     - minute: 0
     - hour: '2'
     - user: {{ salt['pillar.get']('user', 'root') }}
+    - identifier: peeringdb extractor
