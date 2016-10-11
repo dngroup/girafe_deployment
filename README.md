@@ -3,8 +3,11 @@
 
 
 ```
+# get ssh key on girafe-ixp-data-extractor or create your key 
+git clone https://github.com/dngroup/girafedeployment.git
+cd girafedeployment
 # pillar value is the default value
-sudo salt-call --local --file-root=$(pwd)/salt state.highstate pillar="{'id_rsa': '/root/.ssh/id_rsa', 'user': $USER, 'outfloder':'/var/www/girafe-data'}"
+sudo salt-call --local --file-root=$(pwd)/salt state.highstate pillar="{'publicaddr': 'http://demo-girafe.nextnet.top/', 'id_rsa': '/root/.ssh/id_rsa', 'user': $USER, 'outfloder':'/var/www/girafe-data'}"
 ```
 
 
