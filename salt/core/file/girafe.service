@@ -1,7 +1,7 @@
 [Unit]
 Description=Girafe Project
-After=docker.service
-BindsTo=docker.service
+After=docker-tcp.socket
+BindsTo=docker-tcp.socket
 Conflicts=shutdown.target reboot.target halt.target
 
 [Service]
@@ -11,7 +11,7 @@ TimeoutStopSec=30
 Restart=always
 RestartSec=10
 
-WorkingDirectory=/root/
+WorkingDirectory=/etc/girafe/docker/composer
 
 ExecStartPre=-/usr/local/bin/docker-compose stop -f girafe.yaml
 ExecStartPre=-/usr/local/bin/docker-compose rm -f girafe.yaml

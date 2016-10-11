@@ -5,3 +5,4 @@ base:
    - docker
    - core
    - crontab
+   - docker.compose
