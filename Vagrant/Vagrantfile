@@ -11,16 +11,21 @@
 # backwards compatibility). Please don't change it unless you know what
 # you're doing.
 Vagrant.configure(2) do |config|
-
+  config.vm.provider "virtualbox" do |v|
+    v.memory = 2048
+    v.cpus = 2
+  end
+  config.vm.network "forwarded_port", guest: 80, host: 8080
   config.vm.box = "ubuntu/xenial64"
   config.vm.synced_folder "/home/dbourasseau/project/girafe_deployment", "/home/ubuntu/girafedeployment"
   config.vm.provision "shell", inline: <<-SHELL
     sudo apt-get update
     sudo apt-get install git curl -y
 
-    git clone https://github.com/dngroup/girafedeployment.git
+//    git clone https://github.com/dngroup/girafedeployment.git
     curl -L https://bootstrap.saltstack.com -o install_salt.sh
     sudo sh install_salt.sh -P
+    rm install_salt.sh
 
   SHELL
 end

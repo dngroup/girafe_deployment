@@ -1,1 +1,0 @@
-50 */4 * * * docker run -itv $(pwd)/id_rsa:/root/id_rsa  dngroup/girafe-ixp-data-extractor ./extract.sh

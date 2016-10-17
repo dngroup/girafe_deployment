@@ -36,11 +36,7 @@
       - file: /etc/systemd/system/girafe.service
 
 
-systemctl start girafe:
-  cmd.run:
-    - name: systemctl start girafe
-    - onchanges:
-      - file: /etc/systemd/system/girafe.service
+
 
 
 /etc/systemd/system/docker-tcp.socket:
@@ -57,12 +53,41 @@ systemctl start girafe:
     - onchanges:
       - file: /etc/systemd/system/docker-tcp.socket
 
+systemctl start docker.socket:
+  cmd.run:
+    - name: systemctl start docker.socket
+    - onchanges:
+      - file: /etc/systemd/system/girafe.service
+
+systemctl enable docker.socket:
+  cmd.run:
+    - name: systemctl enable girafe
+    - onchanges:
+      - file: /etc/systemd/system/girafe.service
+
+systemctl start girafe:
+  cmd.run:
+    - name: systemctl start girafe
+    - onchanges:
+      - file: /etc/systemd/system/girafe.service
+
+systemctl enable girafe:
+  cmd.run:
+    - name: systemctl enable girafe
+    - onchanges:
+      - file: /etc/systemd/system/girafe.service
+
 systemctl stop docker:
   cmd.run:
     - onchanges:
       - file: /etc/systemd/system/docker-tcp.socket
 
 systemctl start docker-tcp.socket:
+  cmd.run:
+    - onchanges:
+      - file: /etc/systemd/system/docker-tcp.socket
+      
+systemctl enable docker-tcp.socket:
   cmd.run:
     - onchanges:
       - file: /etc/systemd/system/docker-tcp.socket
@@ -75,8 +100,12 @@ git girafe:
     - name: https://github.com/dngroup/girafe.git
     - target: /etc/girafe
     - force_reset: True
+    - force_checkout: true
+    - depth: 1
     - require:
       - pkg: git
+#    - unless:
+#      - cd /etc/girafe
 
 
 
