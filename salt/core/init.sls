@@ -6,7 +6,7 @@
     - makedirs: True
     - user: root
     - group: root
-    - mode: 7500
+    - mode: 750
 
 /etc/default/docker:
   file:
@@ -16,27 +16,7 @@
     - makedirs: True
     - user: root
     - group: root
-    - mode: 755
-
-# don't use /etc/systemd/user folder as say on github but system like do on girafe server
-/etc/systemd/system/girafe.service:
-  file:
-    - managed
-    - source: salt://core/file/girafe.service
-    - template: jinja
-    - makedirs: True
-    - user: root
-    - group: root
-    - mode: 755
-    - require:
-      - file: /etc/systemd/system/docker-tcp.socket
-  cmd.run:
-    - name: systemctl daemon-reload
-    - onchanges:
-      - file: /etc/systemd/system/girafe.service
-
-
-
+    - mode: 644
 
 
 /etc/systemd/system/docker-tcp.socket:
@@ -47,50 +27,20 @@
     - makedirs: True
     - user: root
     - group: root
-    - mode: 755
+    - mode: 644
   cmd.run:
     - name: systemctl daemon-reload
     - onchanges:
       - file: /etc/systemd/system/docker-tcp.socket
 
-systemctl start docker.socket:
-  cmd.run:
-    - name: systemctl start docker.socket
-    - onchanges:
-      - file: /etc/systemd/system/girafe.service
 
-systemctl enable docker.socket:
-  cmd.run:
-    - name: systemctl enable girafe
-    - onchanges:
-      - file: /etc/systemd/system/girafe.service
-
-systemctl start girafe:
-  cmd.run:
-    - name: systemctl start girafe
-    - onchanges:
-      - file: /etc/systemd/system/girafe.service
-
-systemctl enable girafe:
-  cmd.run:
-    - name: systemctl enable girafe
-    - onchanges:
-      - file: /etc/systemd/system/girafe.service
-
-systemctl stop docker:
-  cmd.run:
-    - onchanges:
-      - file: /etc/systemd/system/docker-tcp.socket
-
-systemctl start docker-tcp.socket:
-  cmd.run:
-    - onchanges:
-      - file: /etc/systemd/system/docker-tcp.socket
-      
 systemctl enable docker-tcp.socket:
   cmd.run:
     - onchanges:
       - file: /etc/systemd/system/docker-tcp.socket
+
+
+# getting configuration
 git:
   pkg:
     - installed
@@ -106,6 +56,82 @@ git girafe:
       - pkg: git
 #    - unless:
 #      - cd /etc/girafe
+/etc/girafe/docker/composer/application.env:
+  file:
+    - managed
+    - source: salt://core/file/application.env
+    - template: jinja
+    - makedirs: True
+    - user: root
+    - group: root
+    - mode: 666
+
+
+# creating service girafe
+# don't use /etc/systemd/user folder as say on github but system like do on girafe server
+/etc/systemd/system/girafe.service:
+  file:
+    - managed
+    - source: salt://core/file/girafe.service
+    - template: jinja
+    - makedirs: True
+    - user: root
+    - group: root
+    - mode: 644
+    - require:
+      - file: /etc/systemd/system/docker-tcp.socket
+  cmd.run:
+    - name: systemctl daemon-reload
+    - onchanges:
+      - file: /etc/systemd/system/girafe.service
+
+
+
+systemctl enable girafe:
+  cmd.run:
+    - name: systemctl enable girafe
+    - onchanges:
+      - file: /etc/systemd/system/girafe.service
+
+systemctl stop docker:
+  cmd.run:
+    - onchanges:
+      - file: /etc/systemd/system/girafe.service
+
+#
+#systemctl start docker.socket:
+#  cmd.run:
+#    - name: systemctl start docker.socket
+#    - onchanges:
+#      - file: /etc/systemd/system/girafe.service
+#
+#systemctl enable docker.socket:
+#  cmd.run:
+#    - name: systemctl enable girafe
+#    - onchanges:
+#      - file: /etc/systemd/system/girafe.service
+#
+#
+#systemctl start docker-tcp.socket:
+#  cmd.run:
+#    - onchanges:
+#      - file: /etc/systemd/system/docker-tcp.socket
+#
+#systemctl enable docker-tcp.socket:
+#  cmd.run:
+#    - onchanges:
+#      - file: /etc/systemd/system/docker-tcp.socket
+#
+systemctl start girafe:
+  cmd.run:
+    - name: systemctl start girafe
+    - onchanges:
+      - file: /etc/systemd/system/girafe.service
+
+
+
+
+
 
 
 
@@ -119,15 +145,7 @@ git girafe:
 #    - group: root
 #    - mode: 666
     
-/etc/girafe/docker/composer/application.env:
-  file:
-    - managed
-    - source: salt://core/file/application.env
-    - template: jinja
-    - makedirs: True
-    - user: root
-    - group: root
-    - mode: 666
+
 
 #systemctl daemon-reload:
 #  cmd.run
