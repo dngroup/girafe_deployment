@@ -81,8 +81,6 @@ git girafe:
     - user: root
     - group: root
     - mode: 644
-    - require:
-      - file: /etc/systemd/system/docker-tcp.socket
   cmd.run:
     - name: systemctl daemon-reload
     - onchanges:
