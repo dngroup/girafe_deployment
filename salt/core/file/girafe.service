@@ -1,8 +1,10 @@
 [Unit]
 Description=Girafe Project
-Requires=docker-tcp.socket
-After=docker-tcp.socket
+#Requires=docker-tcp.socket
+#After=docker-tcp.socket
 Requires=docker.service
+After=docker.service
+
 Conflicts=shutdown.target reboot.target halt.target
 
 [Service]

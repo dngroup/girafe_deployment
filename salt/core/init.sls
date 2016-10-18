@@ -1,12 +1,12 @@
-/etc/systemd/system/docker.service.d/docker-defaults.conf:
-  file:
-    - managed
-    - source: salt://core/file/docker-defaults.conf
-    - template: jinja
-    - makedirs: True
-    - user: root
-    - group: root
-    - mode: 750
+#/etc/systemd/system/docker.service.d/docker-defaults.conf:
+#  file:
+#    - managed
+#    - source: salt://core/file/docker-defaults.conf
+#    - template: jinja
+#    - makedirs: True
+#    - user: root
+#    - group: root
+#    - mode: 750
 
 /etc/default/docker:
   file:
@@ -18,26 +18,29 @@
     - group: root
     - mode: 644
 
+docker:
+  service.running:
+    - enable: True
 
-/etc/systemd/system/docker-tcp.socket:
-  file:
-    - managed
-    - source: salt://core/file/docker-tcp.socket
-    - template: jinja
-    - makedirs: True
-    - user: root
-    - group: root
-    - mode: 644
-  cmd.run:
-    - name: systemctl daemon-reload
-    - onchanges:
-      - file: /etc/systemd/system/docker-tcp.socket
-
-
-systemctl enable docker-tcp.socket:
-  cmd.run:
-    - onchanges:
-      - file: /etc/systemd/system/docker-tcp.socket
+#/etc/systemd/system/docker-tcp.socket:
+#  file:
+#    - managed
+#    - source: salt://core/file/docker-tcp.socket
+#    - template: jinja
+#    - makedirs: True
+#    - user: root
+#    - group: root
+#    - mode: 644
+#  cmd.run:
+#    - name: systemctl daemon-reload
+#    - onchanges:
+#      - file: /etc/systemd/system/docker-tcp.socket
+#
+#
+#systemctl enable docker-tcp.socket:
+#  cmd.run:
+#    - onchanges:
+#      - file: /etc/systemd/system/docker-tcp.socket
 
 
 # getting configuration
@@ -92,12 +95,12 @@ systemctl enable girafe:
     - name: systemctl enable girafe
     - onchanges:
       - file: /etc/systemd/system/girafe.service
-
-systemctl stop docker:
-  cmd.run:
-    - onchanges:
-      - file: /etc/systemd/system/girafe.service
-
+#
+#systemctl stop docker:
+#  cmd.run:
+#    - onchanges:
+#      - file: /etc/systemd/system/girafe.service
+#
 #
 #systemctl start docker.socket:
 #  cmd.run:
