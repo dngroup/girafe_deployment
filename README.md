@@ -8,6 +8,8 @@ git clone https://github.com/dngroup/girafedeployment.git
 cd girafedeployment
 # pillar value is the default value
 sudo salt-call --local --file-root=$(pwd)/salt state.highstate pillar="{'publicaddr': 'http://demo-girafe.nextnet.top/', 'id_rsa': '/root/.ssh/id_rsa', 'outfloder':'/var/www/girafe-data'}"
+#on debian the last version of docker did't install without pillar
+#salt-call --local --file-root=$(pwd)/salt state.highstate pillar="{'publicaddr': 'http://demo-girafe.nextnet.top/', 'id_rsa': '/root/.ssh/id_rsa', 'outfloder':'/var/www/girafe-data','docker-pkg':{'lookup':{'version':'1.12.2-0~jessie'}}}"
 ```
 
 ``` 
