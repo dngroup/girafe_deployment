@@ -13,7 +13,7 @@ logdir:
 
 extract:
   cron.present:
-    - name: docker run --name extract --rm -v {{ salt['pillar.get']('id_rsa', '/root/.ssh/id_rsa') }}:/root/id_rsa  dngroup/girafe-ixp-data-extractor ./extract.sh >>/var/log/girafe/extract 2>&1
+    - name: docker run --rm -v {{ salt['pillar.get']('id_rsa', '/root/.ssh/id_rsa') }}:/root/id_rsa  dngroup/girafe-ixp-data-extractor ./extract.sh >>/var/log/girafe/extract 2>&1
     - minute: 0
     - hour: '*/4'
     - user: root
@@ -21,7 +21,7 @@ extract:
 
 compile:
   cron.present:
-    - name: docker run --name compile --rm -v {{ salt['pillar.get']('id_rsa', '/root/.ssh/id_rsa') }}:/root/id_rsa -v {{ salt['pillar.get']('outfloder', '/var/www/girafe-data') }}:/root/tohost/girafe-ixp-data-extractor  dngroup/girafe-ixp-data-extractor ./compile.sh >>/var/log/girafe/compile 2>&1
+    - name: docker run  --rm -v {{ salt['pillar.get']('id_rsa', '/root/.ssh/id_rsa') }}:/root/id_rsa -v {{ salt['pillar.get']('outfloder', '/var/www/girafe-data') }}:/root/tohost/girafe-ixp-data-extractor  dngroup/girafe-ixp-data-extractor ./compile.sh >>/var/log/girafe/compile 2>&1
     - minute: 30
     - hour: '1'
     - user: root
@@ -29,7 +29,7 @@ compile:
 
 webupdate:
   cron.present:
-    - name: docker run --name webupdate --rm -v {{ salt['pillar.get']('id_rsa', '/root/.ssh/id_rsa') }}:/root/id_rsa -v {{ salt['pillar.get']('outfloder', '/var/www/girafe-data') }}:/root/tohost/girafe-ixp-data-extractor  dngroup/girafe-ixp-data-extractor ./docker/webupdate.sh >>/var/log/girafe/webupdate 2>&1
+    - name: docker run  --rm -v {{ salt['pillar.get']('id_rsa', '/root/.ssh/id_rsa') }}:/root/id_rsa -v {{ salt['pillar.get']('outfloder', '/var/www/girafe-data') }}:/root/tohost/girafe-ixp-data-extractor  dngroup/girafe-ixp-data-extractor ./docker/webupdate.sh >>/var/log/girafe/webupdate 2>&1
     - minute: 30
     - hour: '2'
     - user: root
@@ -46,7 +46,7 @@ mv out folder:
 
 peeringdb extractor:
   cron.present:
-    - name: docker run  --name peeringdbExtractor --rm -v {{ salt['pillar.get']('id_rsa', '/root/.ssh/id_rsa') }}:/root/id_rsa  dngroup/girafe-ixp-data-extractor ./ixp.sh  >>/var/log/girafe/peeringdb 2>&1
+    - name: docker run --rm -v {{ salt['pillar.get']('id_rsa', '/root/.ssh/id_rsa') }}:/root/id_rsa  dngroup/girafe-ixp-data-extractor ./ixp.sh  >>/var/log/girafe/peeringdb 2>&1
     - minute: 0
     - hour: '2'
     - user: root
