@@ -22,9 +22,8 @@ echo "deb http://repo.saltstack.com/apt/ubuntu/16.04/amd64/latest xenial main" >
 sudo apt-get update
 sudo apt-get install salt-common
 ```
-### Docker
 
-## Installation
+## Installation of Girafe
 ```
 # pillar value is the default value
 sudo salt-call --local --file-root=$(pwd)/salt state.highstate pillar="{'id_rsa': '/root/.ssh/id_rsa', 'user': $USER, 'outfloder':'/var/www/girafe-data'}"
