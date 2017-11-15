@@ -1,0 +1,32 @@
+sessionmgt:
+  image: dngroup/simu-sessionmgt
+  ports:
+   - "127.0.0.1:9000:9000"
+  links:
+    - server1
+    - server2
+  volumes:
+    - /tmp/datatemu/:/tmp/datatemu/
+  env_file:
+    - application.env
+  net: "bridge"
+
+server1:
+  image: dngroup/simu-serverapache
+  ports:
+   - "127.0.0.1:9002:80"
+  cap_add:
+   - NET_ADMIN
+  volumes:
+   - ./input:/usr/local/apache2/htdocs/
+  net: "bridge" 
+
+server2:
+  image: dngroup/simu-serverapache:nolimit
+  ports:
+   - "127.0.0.1:9003:80"
+  cap_add:
+   - NET_ADMIN
+  volumes:
+   - ./input:/usr/local/apache2/htdocs/
+  net: "bridge"
